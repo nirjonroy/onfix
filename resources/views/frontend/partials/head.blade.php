@@ -74,6 +74,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/fixmo/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/fixmo/css/colors/color1.css') }}" id="colors">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/fixmo/css/custom.css') }}">
 
     @stack('css')
 </head>

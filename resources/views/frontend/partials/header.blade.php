@@ -12,9 +12,8 @@
                     <div id="site-logo" class="clearfix">
                         <div class="bg-color-logo wrap-logo m-0">
                             <div id="site-log-inner" class="wrap-inner-logo">
-                                <a class="title-logo" href="{{ route('front.home') }}">
+                                <a class="title-logo" href="{{ route('front.home') }}" aria-label="{{ $siteName }}">
                                     <img src="{{ asset(siteInfo()->logo) }}" class="padr-10" alt="{{ $siteName }}">
-                                    {{ $siteName }}
                                 </a>
                             </div>
                         </div>

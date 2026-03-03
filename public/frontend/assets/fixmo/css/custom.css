@@ -1,0 +1,17 @@
+﻿#site-header .title-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+#site-header .title-logo img {
+    max-height: 70px;
+    width: auto;
+    height: auto;
+}
+
+@media (max-width: 991px) {
+    #site-header .title-logo img {
+        max-height: 55px;
+    }
+}
