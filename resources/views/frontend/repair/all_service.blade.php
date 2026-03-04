@@ -8,8 +8,6 @@
 @endphp
 @section('title', $SeoSettings ? $SeoSettings->seo_title : 'All Services')
 @push('css')
-    <link rel="stylesheet" href="{{ asset('frontend/css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/food.css') }}">
 @endpush
 
 @section('seos')
@@ -55,87 +53,110 @@
 @endsection
 
 @section('content')
-<div class="stricky-header stricked-menu main-menu main-menu-two">
-    <div class="sticky-header__content"></div>
-    <!-- /.sticky-header__content -->
-</div>
-<!-- /.stricky-header -->
+@php
+    $fixmo = 'frontend/assets/fixmo';
+    $bannerImage = asset($fixmo . '/img/banner/banner-370.jpg');
+    $serviceIcons = [
+        'icon-phonendoscope',
+        'icon-smartphone-broken',
+        'icon-plaster',
+        'icon-tablet-broken',
+        'icon-sync-laptop',
+        'icon-smartphone-repair',
+    ];
+@endphp
 
-<!--Page Header Start-->
-<section class="page-header">
-    <div class="page-header-bg" style="background-image: url({{asset('frontend/assets/images/about_bg.webp')}})">
-    </div>
-    <div class="container">
-        <div class="page-header__inner">
-            <h1>All Services </h1>
-            <p> </p>
-            <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="index.html">Home</a></li>
-                <li><span>//</span></li>
-                <li>All Services</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!--Page Header End-->
-
-<!--About Two Start-->
-<section class="about-one">
-    <div class="about-one__bg float-bob-y" style="background-image: url({{asset('frontend/assets/images/backgrounds/about-one-bg-img-1.jpg')}});">
-    </div>
-    <div class="container">
-        <div class="section-title text-center">
-
-            <h2 class="section-title__title">Welcome To DC Phone
-                <br>All Services</h2>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-lg-6">
-                <div class="about-one__left">
-                    <div class="about-one__img wow slideInLeft" data-wow-delay="100ms" data-wow-duration="2500ms">
-                        <img src="{{asset('frontend/assets/images/resources/about-1-1.jpg')}}" alt="">
-                        <div class="about-one__our-goal">
-                            <p class="about-one__our-goal-sub-title">What You Wanna Fix:</p>
-                            <h3 class="about-one__our-goal-title">"Smartphone or Laptop"</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6">
-                <div class="about-one__right">
-                    {{-- <div class="section-title text-left">
-                        <span class="section-title__tagline">OUR INTRODUCTION</span>
-                        <h2 class="section-title__title">Welcome To Smartphone & Laptop Repair Service Center</h2>
-                    </div>
-                    <p class="about-one__right-text-1">Black Tech Black Tech</p> --}}
-                    <ul class="about-one__points list-unstyled">
-                        @foreach ($all_service as $key => $item)
-                        <li>
-                            <a href="{{ route('front.services.category', ['category' => $item->slug]) }}">
-                            <div class="about-one__points-single">
-                                <div class="about-one__points-icon">
-                                    <span class="">
-                                        @if(!empty($item->image))
-                                        <img src="{{ asset($item->image) }}" alt="" class="img-fluid" width="40px" height="50px">
-                                        @endif
-                                    </span>
+<div id="main-content" class="site-main clearfix">
+    <div id="content-wrap">
+        <div id="site-content" class="site-content clearfix">
+            <div id="inner-content" class="inner-content-wrap">
+                <div class="page-content">
+                    <!-- Banner -->
+                    <section class="fixmo-banner">
+                        <div class="container-fluid p-0">
+                            <div class="row m-0 wrap-height">
+                                <div class="col-md-5 col-left-banner-all">
+                                    <div class="wrap-banner-left wrap-page">
+                                        <div class="name-page">
+                                            <h2 class="title-heading big text-white">All Services</h2>
+                                            <p class="name title-small mb-0"><a class="name title-small space" href="{{ route('front.home') }}">Home</a> Services</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="about-one__points-text">
-                                    <h3 class="about-one__points-title">{{ $item->name }}</h3>
-                                    <p class="about-one__points-subtitle">{!! Str::limit($item->short_description, 80, ' ...') !!}
-                                    </p>
+                                <div class="col-md-7 col-right-banner-all">
+                                    <div class="wrap-banner-right">
+                                        <img class="img-banner" src="{{ $bannerImage }}" alt="Services banner">
+                                    </div>
                                 </div>
                             </div>
-                            </a>
-                        </li>
-                        @endforeach
+                        </div>
+                        <div class="themesflat-spacer clearfix" data-desktop="60" data-mobile="60" data-smobile="60"></div>
+                    </section>
+                    <!-- End Banner -->
 
-
-                    </ul>
-                    <a href="{{route('front.contact')}}" class="thm-btn">Contact Us</a>
+                    <!-- SERVICES -->
+                    <section class="row-services">
+                        <div class="container par-ser">
+                            <div class="row mr-0">
+                                <div class="col-md-12 pr-0">
+                                    <div class="themesflat-headings style-1 text-center clearfix">
+                                        <div class="wrap-inner-small">
+                                            <h5 class="title-heading small">Our Services</h5>
+                                        </div>
+                                        <div class="wrap-inner-big">
+                                            <h2 class="title-heading big">Choose a device to repair</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="themesflat-spacer clearfix" data-desktop="16" data-mobile="35" data-smobile="35"></div>
+                            <div class="row wrap-row-services">
+                                @forelse ($all_service as $item)
+                                    <div class="col-md-4">
+                                        <div class="themesflat-image-box style-1 has-icon icon-right w65 clearfix wow fadeInUp" data-wow-delay="{{ $loop->index * 150 }}ms" data-wow-duration="1500ms">
+                                            <div class="image-box-item clearfix">
+                                                <div class="inner">
+                                                    <div class="thumb data-effect-item">
+                                                        <img src="{{ $item->image ? asset($item->image) : asset($fixmo . '/img/services/service-1.jpg') }}" alt="{{ $item->name }}">
+                                                        <div class="overlay-effect bg-color-accent"></div>
+                                                    </div>
+                                                    <div class="text-wrap">
+                                                        <div class="row m-0">
+                                                            <div class="col-md-3">
+                                                                <div class="icon">
+                                                                    <span class="{{ $serviceIcons[$loop->index % count($serviceIcons)] }}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <div class="title">
+                                                                    <h4 class="title-heading big"><a href="{{ route('front.services.category', ['category' => $item->slug]) }}">{{ $item->name }}</a></h4>
+                                                                    <p class="title-small mb-0">{!! Str::limit($item->short_description, 90, '...') !!}</p>
+                                                                </div>
+                                                                <div class="frame-button">
+                                                                    <a href="{{ route('front.services.category', ['category' => $item->slug]) }}" class="fixmo-button btn-font-1">
+                                                                        Read More
+                                                                        <span class="icon"><i class="fa fa-arrow-right"></i></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="col-md-12">
+                                        <p class="title-small text-center">No services available right now.</p>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END SERVICES -->
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 @endsection

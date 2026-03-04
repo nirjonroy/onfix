@@ -1,249 +1,209 @@
 @extends('frontend.app')
-@section('title', 'Home')
-@push('css')
-    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/food.css') }}"> --}}
-@endpush
+@section('title', $service->name . ' Appointment')
+
 @section('content')
-<style>
-    /* Add any additional styling here */
-    button {
-      margin: 5px;
-      padding: 10px;
-      cursor: pointer;
-      background-color:  #cf1f1f  !important;
-      color: white !important;
-    }
+@php
+    $fixmo = 'frontend/assets/fixmo';
+    $bannerImage = asset($fixmo . '/img/banner/banner-370.jpg');
+    $shortDescription = $service->short_description
+        ? Str::limit(strip_tags($service->short_description), 160)
+        : 'Schedule your repair with our certified technicians.';
+    $longDescription = $service->long_description
+        ? Str::limit(strip_tags($service->long_description), 220)
+        : '';
+    $thumbImage = $service->thumb_image
+        ? asset($service->thumb_image)
+        : asset($fixmo . '/img/services/service-1.jpg');
+@endphp
 
-    button.selected {
-      background-color: #000000 !important;
-      color: white /* Change to your desired color */
-    }
-  </style>
-<div class="stricky-header stricked-menu main-menu main-menu-two">
-    <div class="sticky-header__content"></div>
-    <!-- /.sticky-header__content -->
+<div id="main-content" class="site-main clearfix">
+    <div id="content-wrap">
+        <div id="site-content" class="site-content clearfix">
+            <div id="inner-content" class="inner-content-wrap">
+                <div class="page-content">
+                    <!-- Banner -->
+                    <section class="fixmo-banner">
+                        <div class="container-fluid p-0">
+                            <div class="row m-0 wrap-height">
+                                <div class="col-md-5 col-left-banner-all">
+                                    <div class="wrap-banner-left wrap-page">
+                                        <div class="name-page">
+                                            <h2 class="title-heading big text-white">Appointment</h2>
+                                            <p class="name title-small mb-0">
+                                                <a class="name title-small space" href="{{ route('front.home') }}">Home</a>
+                                                Appointment / {{ $service->name }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-right-banner-all">
+                                    <div class="wrap-banner-right">
+                                        <img class="img-banner" src="{{ $bannerImage }}" alt="Appointment">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="themesflat-spacer clearfix" data-desktop="0" data-mobile="0" data-smobile="0"></div>
+                    </section>
+                    <!-- End Banner -->
+
+                    <!-- Appointment -->
+                    <section class="row-contact">
+                        <div class="container">
+                            <div class="themesflat-spacer clearfix" data-desktop="100" data-mobile="60" data-smobile="60"></div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="themesflat-headings contact clearfix">
+                                        <div class="wrap-inner-small">
+                                            <h5 class="title-heading small m-0">Appointment</h5>
+                                        </div>
+                                        <div class="wrap-inner-big">
+                                            <h2 class="title-heading big">{{ $service->name }}</h2>
+                                            <p class="title-small">{{ $shortDescription }}</p>
+                                        </div>
+                                        <img class="appointment-thumb" src="{{ $thumbImage }}" alt="{{ $service->name }}">
+                                        @if($longDescription)
+                                            <div class="wrap-sub">
+                                                <p class="title-small">{{ $longDescription }}</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="contact-form style-1">
+                                        <form action="{{ route('front.repair.submit') }}" method="post" class="form-submit comment-form wpcf7-form">
+                                            @csrf
+                                            <input type="hidden" name="service_name" value="{{ $service->short_name }}">
+                                            <input type="hidden" name="appoinment_date" id="selected_date" readonly>
+                                            <input type="hidden" name="appoinment_time" id="selected_time" readonly>
+
+                                            <div class="appointment-field">
+                                                <p class="title-small">Schedule Date</p>
+                                                <div id="dateButtons" class="appointment-picker"></div>
+                                            </div>
+
+                                            <div class="appointment-field">
+                                                <p class="title-small">Schedule Time</p>
+                                                <div id="timeButtons" class="appointment-picker"></div>
+                                            </div>
+
+                                            <span class="wpcf7-form-control-wrap your-name">
+                                                <input type="text" name="name" class="wpcf7-form-control" placeholder="Full Name" required>
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-phone">
+                                                <input type="text" name="phone" class="wpcf7-form-control" placeholder="Phone Number" required>
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-email">
+                                                <input type="email" name="email" class="wpcf7-form-control" placeholder="Email Address" required>
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-address">
+                                                <textarea name="address" class="wpcf7-form-control wpcf7-textarea" rows="3" placeholder="Address" required></textarea>
+                                            </span>
+                                            <span class="wpcf7-form-control-wrap your-message">
+                                                <textarea name="short_notes" class="wpcf7-form-control wpcf7-textarea" rows="5" placeholder="Tell us about your device issue" required></textarea>
+                                            </span>
+                                            <span class="wrap-submit">
+                                                <button type="submit" class="submit wpcf7-form-control wpcf7-submit">Book Appointment</button>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="themesflat-spacer clearfix" data-desktop="118" data-mobile="60" data-smobile="60"></div>
+                        </div>
+                    </section>
+                    <!-- End Appointment -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- /.stricky-header -->
-
-<!--Page Header Start-->
-<section class="page-header">
-    <div class="page-header-bg" style="background-image: url({{asset('frontend/assets/images/appoinment.webp')}})">
-    </div>
-    <div class="container">
-        <div class="page-header__inner">
-            <h1>Appoinment</h1>
-            <p>{{$service->name}} </p>
-            <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="{{route('front.home')}}">Home</a></li>
-                <li><span>//</span></li>
-                <li>Appoinment</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!--Page Header End-->
-
-<!--Contact Page Start-->
-<section class="contact-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-8 col-lg-8">
-                <div class="contact-page__left">
-                    <div class="contact-page__shape-1">
-                        <img src="assets/images/shapes/contact-page-shape-1.png" alt="">
-                    </div>
-                    <h3 class="contact-page__title">Appoinment</h3>
-                    <form action="{{ route('front.repair.submit') }}" method="post">
-
-                        @csrf
-                         <input type="hidden" class="form-control" name="service_name" value="{{$service->short_name}}">
-
-                        <div class="form-group">
-                            <!--<label for="usr">Schedule Date:</label>-->
-                           <input type="hidden" class="form-control" name="appoinment_date" id="selected_date" readonly>
-
-                            <p>Schedule Date:</p>
-                            <div id="dateButtons"></div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="appoinment_time" id="selected_time" readonly>
-
-                            <p>Schedule Time:</p>
-                            <div id="timeButtons"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="usr">Name:</label>
-                            <input type="text" class="form-control" name="name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">E-mail:</label>
-                            <input type="text" class="form-control" name="email">
-                          </div>
-
-                          <div class="form-group">
-                            <label for="phone">Phone:</label>
-                            <input type="text" class="form-control" name="phone">
-                          </div>
-
-                          <div class="form-group">
-                            <label for="email">Address:</label>
-                            <textarea class="form-control" rows="5" id="comment" name="address"></textarea>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="email">Tell Us About Your Device's Problem:</label>
-                            <textarea class="form-control" rows="5" id="comment" name="short_notes"></textarea>
-                          </div>
-
-                          {{-- <div class="form-group">
-                            <label for="image">Upload Image:</label>
-                            <input type="file" name="image" class="form-control">
-                        </div> --}}
-
-
-                          <div class="form-group float-right" style="padding: 5px">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-
-
-                    </form>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4">
-                <div class="contact-page__right">
-                    <div class="section-title text-left">
-                        <span class="section-title__tagline"></span>
-                        <h2 class="section-title__title">{{$service->name}}</h2>
-                        <img src="{{ asset($service->thumb_image) }}" alt="" width="50px" height="50px" class="img-thumb">
-
-                    </div>
-                    {{-- <p class="contact-page__right-text">Duis aute irure dolor in repreh enderit in volup tate cillum dolore eu fugiat nulla dolor atur with Lorem ipsum is simply free market web bites eius mod ut labore duis</p> --}}
-                    <div class="contact-page__points-box-inner">
-                        <div class="contact-page__points-box">
-
-                            {!!$service->long_description!!}
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--Contact Page End-->
 
 <script>
-    // Function to get the current date in YYYY-MM-DD format
-    function getCurrentDate() {
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-      var yyyy = today.getFullYear();
-
-      return yyyy + '-' + mm + '-' + dd;
-    }
-
-    // Function to dynamically generate date buttons
-    function generateDateButtons(numDays) {
-      var currentDate = new Date();
-      var endDate = new Date();
-      endDate.setDate(currentDate.getDate() + numDays); // Set end date as current date + numDays
-      var dateButtons = document.getElementById('dateButtons');
-
-      while (currentDate <= endDate) {
-        var button = document.createElement('button');
-        button.textContent = currentDate.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-        button.value = currentDate.toISOString().split('T')[0];
-
-        button.classList.add('btn', 'btn-outline-success');
-
-        if (currentDate.getDay() === 0) { // Sunday
-          button.disabled = true;
-        } else {
-          button.onclick = function(event) {
-            event.preventDefault();
-            selectDate(this);
-          };
+    (function () {
+        function formatDateValue(date) {
+            var yyyy = date.getFullYear();
+            var mm = String(date.getMonth() + 1).padStart(2, '0');
+            var dd = String(date.getDate()).padStart(2, '0');
+            return yyyy + '-' + mm + '-' + dd;
         }
 
-        dateButtons.appendChild(button);
+        function generateDateButtons(numDays) {
+            var currentDate = new Date();
+            var endDate = new Date();
+            endDate.setDate(currentDate.getDate() + numDays);
+            var dateButtons = document.getElementById('dateButtons');
 
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-    }
+            while (currentDate <= endDate) {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = currentDate.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                button.value = formatDateValue(currentDate);
 
-    // Function to handle date selection
-    function selectDate(button) {
-      // Remove the 'selected' class from all buttons
-      var dateButtons = document.querySelectorAll('#dateButtons button');
-      dateButtons.forEach(function(dateButton) {
-        dateButton.classList.remove('selected');
-      });
+                if (currentDate.getDay() === 0) {
+                    button.disabled = true;
+                } else {
+                    button.addEventListener('click', function () {
+                        selectDate(this);
+                    });
+                }
 
-      // Add the 'selected' class to the clicked button
-      button.classList.add('selected');
+                dateButtons.appendChild(button);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+        }
 
-      // Update the selected date in the input field
-      document.getElementById('selected_date').value = button.value;
-    }
+        function selectDate(button) {
+            var dateButtons = document.querySelectorAll('#dateButtons button');
+            dateButtons.forEach(function (dateButton) {
+                dateButton.classList.remove('selected');
+            });
 
-    // Function to dynamically generate time buttons
-    // Function to generate time buttons from 8 AM to 10 PM with a specified interval
-// Function to generate time buttons from 8:00 AM to 10:00 PM with a specified interval
-function generateTimeButtons(intervalMinutes) {
-  var startTime = new Date();
-  startTime.setHours(10, 0, 0); // Set start time to 8:00 AM
-  var endTime = new Date();
-  endTime.setHours(20, 0, 0); // Set end time to 10:00 PM
-  var timeButtons = document.getElementById('timeButtons');
+            button.classList.add('selected');
+            document.getElementById('selected_date').value = button.value;
+        }
 
-  while (startTime <= endTime) {
-    var button = document.createElement('button');
-    button.textContent = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    button.value = startTime.toTimeString().split(' ')[0];
+        function generateTimeButtons(intervalMinutes) {
+            var startTime = new Date();
+            startTime.setHours(10, 0, 0, 0);
+            var endTime = new Date();
+            endTime.setHours(20, 0, 0, 0);
+            var timeButtons = document.getElementById('timeButtons');
 
-    button.classList.add('btn', 'btn-outline-success');
+            while (startTime <= endTime) {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                button.value = startTime.toTimeString().split(' ')[0];
 
-    button.onclick = function(event) {
-      event.preventDefault();
-      selectTime(this);
-    };
+                button.addEventListener('click', function () {
+                    selectTime(this);
+                });
 
-    timeButtons.appendChild(button);
+                timeButtons.appendChild(button);
+                startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
+            }
+        }
 
-    startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
-  }
-}
+        function selectTime(button) {
+            var timeButtons = document.querySelectorAll('#timeButtons button');
+            timeButtons.forEach(function (timeButton) {
+                timeButton.classList.remove('selected');
+            });
 
+            button.classList.add('selected');
+            document.getElementById('selected_time').value = button.value;
+        }
 
-
-    // Function to handle time selection
-    function selectTime(button) {
-      // Remove the 'selected' class from all buttons
-      var timeButtons = document.querySelectorAll('#timeButtons button');
-      timeButtons.forEach(function(timeButton) {
-        timeButton.classList.remove('selected');
-      });
-
-      // Add the 'selected' class to the clicked button
-      button.classList.add('selected');
-
-      // Update the selected time in the input field
-      document.getElementById('selected_time').value = button.value;
-    }
-
-    // Call the function to generate date buttons for the next 7 days
-    generateDateButtons(7);
-
-    // Call the function to generate time buttons from the current time to 8:00 PM with a 60-minute interval
-    generateTimeButtons(60); // Generates time buttons with a 60-minute interval
-
-  </script>
-
-
+        document.addEventListener('DOMContentLoaded', function () {
+            generateDateButtons(7);
+            generateTimeButtons(60);
+        });
+    })();
+</script>
 @endsection

@@ -8,10 +8,68 @@
     max-height: 70px;
     width: auto;
     height: auto;
+    background: #ffffff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Prevent the About overlay card from overlapping the next section */
+.row-aboutus {
+    position: relative;
+    padding-bottom: 160px;
+}
+
+.appointment-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.appointment-field {
+    margin-bottom: 22px;
+}
+
+.appointment-field .title-small {
+    margin-bottom: 6px;
+}
+
+.appointment-picker button {
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1;
+    background: #ff4e4e;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.appointment-picker button.selected {
+    background: #042c71;
+}
+
+.appointment-picker button:disabled {
+    background: #d7dbe0;
+    color: #5b5b5b;
+    cursor: not-allowed;
+}
+
+.appointment-thumb {
+    width: 90px;
+    height: auto;
+    margin: 12px 0;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(4, 44, 113, 0.15);
 }
 
 @media (max-width: 991px) {
     #site-header .title-logo img {
         max-height: 55px;
+    }
+
+    .row-aboutus {
+        padding-bottom: 80px;
     }
 }

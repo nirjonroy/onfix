@@ -1,4 +1,4 @@
-@extends('frontend.app')
+﻿@extends('frontend.app')
 @php
     $SeoSettings = DB::table('seo_settings')->where('id', 2)->first();
     $metaTitle = $SeoSettings->meta_title ?: $SeoSettings->seo_title;
@@ -8,177 +8,362 @@
 @endphp
 @section('title', $SeoSettings ? $SeoSettings->seo_title : 'About Us- DC Phone Repair')
 @push('css')
-    <link rel="stylesheet" href="{{ asset('frontend/css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/food.css') }}">
 @endpush
 @section('seos')
-    
-    <meta charset="UTF-8">
-    
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    
-    <meta name="title" content="{{$SeoSettings->seo_title}}">
-    
-    <meta name="description" content="{{$SeoSettings->seo_description}}">
+    <meta name="title" content="{{ $SeoSettings->seo_title }}">
+    <meta name="description" content="{{ $SeoSettings->seo_description }}">
     @if($SeoSettings->keywords)
-        <meta name="keywords" content="{{$SeoSettings->keywords}}">
+        <meta name="keywords" content="{{ $SeoSettings->keywords }}">
     @endif
     @if($SeoSettings->author)
-        <meta name="author" content="{{$SeoSettings->author}}">
+        <meta name="author" content="{{ $SeoSettings->author }}">
     @endif
     @if($SeoSettings->publisher)
-        <meta name="publisher" content="{{$SeoSettings->publisher}}">
-        <meta property="article:publisher" content="{{$SeoSettings->publisher}}">
+        <meta name="publisher" content="{{ $SeoSettings->publisher }}">
+        <meta property="article:publisher" content="{{ $SeoSettings->publisher }}">
     @endif
     @if($SeoSettings->copyright)
-        <meta name="copyright" content="{{$SeoSettings->copyright}}">
+        <meta name="copyright" content="{{ $SeoSettings->copyright }}">
     @endif
-    <link rel="canonical" href="{{url()->current()}}">
-    <meta property="og:title" content="{{$metaTitle}}">
-    <meta property="og:description" content="{{$metaDescription}}">
-    <meta property="og:url" content="{{url()->current()}}">
-    <meta property="og:site_name" content="{{$siteName}}">
-    
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="{{ $siteName }}">
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
     @if($metaImage)
-        <meta property="og:image" content="{{$metaImage}}">
+        <meta property="og:image" content="{{ $metaImage }}">
     @endif
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="628">
     <meta property="article:modified_time" content="2023-03-01T12:33:34+00:00">
     <meta name="twitter:card" content="{{ $metaImage ? 'summary_large_image' : 'summary' }}">
-    <meta name="twitter:title" content="{{$metaTitle}}">
-    <meta name="twitter:description" content="{{$metaDescription}}">
-    <meta name="twitter:url" content="{{url()->current()}}">
+    <meta name="twitter:title" content="{{ $metaTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:url" content="{{ url()->current() }}">
     @if($metaImage)
-        <meta name="twitter:image" content="{{$metaImage}}">
+        <meta name="twitter:image" content="{{ $metaImage }}">
     @endif
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 @endsection
 @section('content')
-<div class="stricky-header stricked-menu main-menu main-menu-two">
-    <div class="sticky-header__content"></div>
-    <!-- /.sticky-header__content -->
-</div>
-<!-- /.stricky-header -->
-
-<!--Page Header Start-->
-<section class="page-header">
-    <div class="page-header-bg" style="background-image: url({{asset('frontend/assets/images/about_bg.webp')}})">
-    </div>
-    <div class="container">
-        <div class="page-header__inner">
-            <h1>About Us</h1>
-            <p>{{$about_us->description_three}} </p>
-            <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="index.html">Home</a></li>
-                <li><span>//</span></li>
-                <li>About Us</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!--Page Header End-->
-
-<!--About Two Start-->
-<section class="about-two about-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-5 col-lg-6">
-                <div class="about-two__left">
-                    <div class="about-two__main-progress-box">
-                        <div class="about-two__progress-single">
-                            <div class="about-two__progress-box">
-                                <div class="circle-progress" data-options='{ "value": 0.8,"thickness": 10,"emptyFill": "#f1f1f1","lineCap": "square", "size": 110, "fill": { "color": "#cf1f1f" } }'>
-                                </div>
-                                <!-- /.circle-progress -->
-                                <div class="about-two__pack">
-                                    <p>85%</p>
-                                </div>
-                            </div>
-                            <div class="about-two__progress-content">
-                                <p>Repair Device</p>
-                            </div>
-                        </div>
-                        <div class="about-two__progress-single">
-                            <div class="about-two__progress-box">
-                                <div class="circle-progress" data-options='{ "value": 0.9,"thickness": 10,"emptyFill": "#f1f1f1","lineCap": "square", "size": 110, "fill": { "color": "#cf1f1f" } }'>
-                                </div>
-                                <!-- /.circle-progress -->
-                                <div class="about-two__pack">
-                                    <p>95%</p>
-                                </div>
-                            </div>
-                            <div class="about-two__progress-content">
-                                <p>Replace Device</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="about-two__img-box">
-                        <div class="about-two__img">
-                            <img src="{{ asset('frontend/assets/images/resources/about-2-1.jpg') }}" alt="">
-                        </div>
-                        <div class="about-two__img-two">
-                            <img src="{{ asset($about_us->video_background) }}" alt="">
-                            {{-- <div class="about-two__video-link">
-                                <a href="https://www.youtube.com/watch?v=Get7rqXYrbQ" class="video-popup">
-                                    <div class="about-two__video-icon">
-                                        <span class="fa fa-play"></span>
-                                        <i class="ripple"></i>
+@php
+    $fixmo = 'frontend/assets/fixmo';
+    $aboutIntro = optional($about_us)->description_three ?: 'Fast, reliable repair for phones, tablets, and laptops.';
+    $aboutBody = optional($about_us)->about_us ?: '';
+    $bannerImage = asset($fixmo . '/img/banner/banner-370.jpg');
+    $aboutImageTop = optional($about_us)->video_background ? asset($about_us->video_background) : asset($fixmo . '/img/group/protfolio2-470x430.jpg');
+    $aboutImageBottom = asset($fixmo . '/img/group/protfolio5-500x345.jpg');
+@endphp            <div id="main-content" class="site-main clearfix">
+                <div id="content-wrap">
+                    <div id="site-content" class="site-content clearfix">
+                        <div id="inner-content" class="inner-content-wrap">
+                            <div class="page-content">
+                                <!-- Banner -->
+                                <section class="fixmo-banner">
+                                    <div class="container-fluid p-0">
+                                        <div class="row m-0 wrap-height">
+                                            <div class="col-md-5 col-left-banner-all">
+                                                <div class="wrap-banner-left wrap-page">
+                                                    <div class="name-page">
+                                                        <h2 class="title-heading big text-white">About Us</h2>
+                                                        <p class="name title-small mb-0"><a class="name title-small space" href="{{ route('front.home') }}">Home</a> About Us</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 col-right-banner-all">
+                                                <div class="wrap-banner-right">
+                                                    <img class="img-banner" src="{{ $bannerImage }}" alt="About banner">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </a>
-                            </div> --}}
+                                    <div class="themesflat-spacer clearfix" data-desktop="60" data-mobile="60" data-smobile="60"></div>
+                                </section>
+                                <!-- End Banner -->
+                                <!-- PAGE About US -->
+                                <section class="row-page-aboutus">
+                                    <div class="container pad-col">
+                                        <div class="row par-ser">
+                                            <div class="col-md-6 pad-col mb-show">
+                                                <div class="themesflat-headings style-1 clearfix">
+                                                    <div class="wrap-inner-small">
+                                                        <h5 class="title-heading small">Why Choose Us</h5>
+                                                    </div>
+                                                    <div class="wrap-inner-big">
+                                                        <h2 class="title-heading big">Get your repair started</h2>
+                                                    </div>
+                                                    <div class="wrap-sub">
+                                                        <p class="title-small">{{ $aboutIntro }}</p>
+                                                    </div>
+                                                    <div class="box-about">
+                                                        <div class="themesflat-spacer clearfix" data-desktop="30" data-mobile="30" data-smobile="30"></div>
+                                                        <div class="wrap-box clearfix wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                            <div class="number-wrap">
+                                                                <span class="text-white">01</span>
+                                                            </div>
+                                                            <div class="text-wrap">
+                                                                <h5 class="title">Book a repair</h5>
+                                                                <p class="sub-title">Schedule online or walk in for a free diagnostic on your device.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="themesflat-spacer clearfix" data-desktop="18" data-mobile="30" data-smobile="30"></div>
+                                                        <div class="wrap-box clearfix wow fadeInLeft " data-wow-delay="200ms" data-wow-duration="1500ms">
+                                                            <div class="number-wrap top-4">
+                                                                <span class="text-white">02</span>
+                                                            </div>
+                                                            <div class="text-wrap">
+                                                                <h5 class="title">Approve the estimate</h5>
+                                                                <p class="sub-title">We explain the issue clearly and provide a transparent quote.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="themesflat-spacer clearfix" data-desktop="18" data-mobile="30" data-smobile="30"></div>
+                                                        <div class="wrap-box clearfix wow fadeInLeft " data-wow-delay="400ms" data-wow-duration="1500ms">
+                                                            <div class="number-wrap top-4">
+                                                                <span class="text-white">03</span>
+                                                            </div>
+                                                            <div class="text-wrap">
+                                                                <h5 class="title">Pick up your device</h5>
+                                                                <p class="sub-title">We test every repair and back it with a service warranty.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if($aboutBody)
+                                                        <div class="themesflat-spacer clearfix" data-desktop="28" data-mobile="20" data-smobile="20"></div>
+                                                        <div class="wrap-sub">
+                                                            <div class="title-small">{!! $aboutBody !!}</div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pad-col mb-hide">
+                                                <div class="wrap-border-img">
+                                                    <div class="wrap-img-top wow fadeInRight " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                        <img src="{{ $aboutImageTop }}" alt="Our team">
+                                                    </div>
+                                                    <div class="wrap-square"></div>
+                                                    <div class="wrap-img-bot wow fadeInUp " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                        <img src="{{ $aboutImageBottom }}" alt="Repair process">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <div class="themesflat-spacer clearfix" data-desktop="9" data-mobile="0" data-smobile="0"></div>
+
+                                    </div>
+                                </section>
+                                <!-- END PAGE About US -->
+                                <!-- GROUP-1 -->
+                                <section class="row-group-1">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="wrap-blog-img">
+                                                    <img src="{{ asset('frontend/assets/fixmo/img/group/blog-1.jpg') }}" alt="images">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="themesflat-spacer clearfix" data-desktop="25" data-mobile="60" data-smobile="60"></div>
+                                                <div class="wrap-group-title">
+                                                    <div class="title-group wow fadeInDown " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                        <h2 class="title-heading big text-white">Amazing facts about {{ $siteName }}</h2>
+                                                    </div>
+                                                    <div class="themesflat-spacer clearfix" data-desktop="33" data-mobile="20" data-smobile="20"></div>
+                                                    <div class="container-fluid">
+                                                        <div class="wrap-group-item wow fadeInUp " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="themesflat-content-box clearfix" data-margin="0 0 0 0" data-mobilemargin="15px 0 15px 0">
+                                                                        <div class="fixmo-group style-1 align-center clearfix">
+                                                                            <div class="group-item">
+                                                                                <div class="inner">
+                                                                                    <div class="text-wrap">
+                                                                                        <div class="icon-wrap">
+                                                                                            <span class="icon-Forma-1"></span>
+                                                                                        </div>
+                                                                                        <div class="number-wrap">
+                                                                                            <span class="number" data-speed="2000" data-to="2000" data-inviewport="yes">2000</span><span class="suffix">+</span>
+                                                                                        </div>
+                                                                                        <h6 class="text-white">Happy Customers</h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- /.themesflat-counter -->
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="themesflat-content-box clearfix" data-margin="0 0 0 0" data-mobilemargin="15px 0 15px 0">
+                                                                        <div class="fixmo-group style-1 align-center clearfix">
+                                                                            <div class="group-item">
+                                                                                <div class="inner">
+                                                                                    <div class="text-wrap">
+                                                                                        <div class="icon-wrap">
+                                                                                            <span class="icon-Forma-2"></span>
+                                                                                        </div>
+                                                                                        <div class="number-wrap">
+                                                                                            <span class="number" data-speed="2000" data-to="5000" data-inviewport="yes">5000</span><span class="suffix">+</span>
+                                                                                        </div>
+                                                                                        <h6 class="text-white">Devices Repaired</h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- /.themesflat-counter -->
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="themesflat-content-box clearfix" data-margin="0 0 0 0" data-mobilemargin="15px 0 15px 0">
+                                                                        <div class="fixmo-group style-1 align-center clearfix">
+                                                                            <div class="group-item">
+                                                                                <div class="inner">
+                                                                                    <div class="text-wrap">
+                                                                                        <div class="icon-wrap">
+                                                                                            <span class="icon-Forma-3"></span>
+                                                                                        </div>
+                                                                                        <div class="number-wrap">
+                                                                                            <span class="number" data-speed="2000" data-to="20" data-inviewport="yes">20</span><span class="suffix">+</span>
+                                                                                        </div>
+                                                                                        <h6 class="text-white">Years Experience</h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- /.themesflat-counter -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="themesflat-spacer clearfix" data-desktop="0" data-mobile="45" data-smobile="45"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="box-group-1 flex-group wow fadeInDown " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                            <div class="group-left">
+                                                <h2 class="title-heading big text-white">Enter Your Mail For subscribe</h2>
+                                            </div>
+                                            <div class="group-right">
+                                                <form action="#" method="post" class="form-submit contact-form wpcf7-form">
+                                                    <div class="form-group">
+                                                        <input type="email" name="email" class="email" placeholder="Email Address">
+                                                        <a href="#" class="fixmo-button shadow bg-red">Subscribe</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- END GROUP-1 -->
+                                <!-- GROUP 2 -->
+                                <section class="row-group-2">
+                                    <div class="wrap-testimonial bg-style-color-1">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="themesflat-spacer clearfix" data-desktop="116" data-mobile="60" data-smobile="60"></div>
+                                                    <div class="themesflat-headings style-1 text-center clearfix wow fadeInDown " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                        <div class="wrap-inner-small">
+                                                            <h5 class="title-heading small text-color-FF4E4E">Client Testimonials</h5>
+                                                        </div>
+                                                        <div class="wrap-inner-big">
+                                                            <h2 class="title-heading big">What our clients say </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="themesflat-spacer clearfix" data-desktop="41" data-mobile="41" data-smobile="41"></div>
+                                                    <div class="container">
+                                                        <div class="themesflat-carousel-box-style-3 clearfix" data-gap="30" data-column="2" data-column2="2" data-column3="1" data-auto="false">
+                                                            <div class="owl-carousel owl-theme ew-resize wow fadeInUp " data-wow-delay="0ms" data-wow-duration="1500ms">
+                                                                <div class="themesflat-testimonials style-2 align-center clearfix">
+                                                                    <div class="wrap-testimonials staff-1 background-color-white">
+                                                                        <div class="testimonials-item ">
+                                                                            <div class="testimonials-img">
+                                                                                <img src="{{ asset('frontend/assets/fixmo/img/group/staff-box1@2x.png') }}" alt="Image" class="img">
+                                                                            </div>
+                                                                            <div class="testimonials-heading">
+                                                                                <p class="heading-name">Eugene Freeman</p>
+                                                                                <p class="heading-woker">Tincidunt</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="testimonials-sub-title">
+                                                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /themesflat-testimonials -->
+                                                                <div class="themesflat-testimonials style-2 align-center clearfix">
+                                                                    <div class="wrap-testimonials background-color-white">
+                                                                        <div class="testimonials-item">
+                                                                            <div class="testimonials-img">
+                                                                                <img src="{{ asset('frontend/assets/fixmo/img/group/staff-box2@2x.png') }}" alt="Image" class="img">
+                                                                            </div>
+                                                                            <div class="testimonials-heading padl-30">
+                                                                                <p class="heading-name">Kelly Coleman</p>
+                                                                                <p class="heading-woker">Nulla nec</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="testimonials-sub-title">
+                                                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /themesflat-testimonials -->
+                                                                <div class="themesflat-testimonials style-2 align-center clearfix">
+                                                                    <div class="wrap-testimonials staff-1 background-color-white">
+                                                                        <div class="testimonials-item ">
+                                                                            <div class="testimonials-img">
+                                                                                <img src="{{ asset('frontend/assets/fixmo/img/group/staff-box1@2x.png') }}" alt="Image" class="img">
+                                                                            </div>
+                                                                            <div class="testimonials-heading">
+                                                                                <p class="heading-name">Eugene Freeman</p>
+                                                                                <p class="heading-woker">Tincidunt</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="testimonials-sub-title">
+                                                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /themesflat-testimonials -->
+                                                                <div class="themesflat-testimonials style-2 align-center clearfix">
+                                                                    <div class="wrap-testimonials background-color-white">
+                                                                        <div class="testimonials-item">
+                                                                            <div class="testimonials-img">
+                                                                                <img src="{{ asset('frontend/assets/fixmo/img/group/staff-box2@2x.png') }}" alt="Image" class="img">
+                                                                            </div>
+                                                                            <div class="testimonials-heading padl-30">
+                                                                                <p class="heading-name">Kelly Coleman</p>
+                                                                                <p class="heading-woker">Nulla nec</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="testimonials-sub-title">
+                                                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /themesflat-testimonials -->
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.themesflat-carousel-box -->
+                                                        <div class="themesflat-spacer clearfix" data-desktop="185" data-mobile="100" data-smobile="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- END GROUP 2 -->
+                            </div>
                         </div>
                     </div>
-                    <div class="about-two__shape-1 shapeMover">
-                        <img src="{{ asset('frontend/assets/images/shapes/about-two-shape-1.png') }}" alt="">
-                    </div>
-                    <div class="about-two__shape-2 float-bob-y">
-                        <img src="{{ asset('frontend/assets/images/shapes/about-two-shape-2.png') }}" alt="">
-                    </div>
                 </div>
             </div>
-            <div class="col-xl-7 col-lg-6">
-                <div class="about-two__right">
-                    <div class="section-title text-left">
-                        <span class="section-title__tagline">Quality Repair</span>
-                        <h2 class="section-title__title">We Can Fix It Almost As Fast As You Can Break It.</h2>
-                    </div>
-                    <p class="about-two__text-1">{!!$about_us->about_us!!}</p>
-                    {{-- <ul class="list-unstyled about-two__points">
-                        <li>
-                            <div class="icon">
-                                <span class="icon-award"></span>
-                            </div>
-                            <div class="text">
-                                <p>WE ALWAYS PUT QUALITY FIRST</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="icon">
-                                <span class="icon-community"></span>
-                            </div>
-                            <div class="text">
-                                <p>CUSTOMER SATISFACTION IS ABSOLUTE</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="icon">
-                                <span class="icon-warranty"></span>
-                            </div>
-                            <div class="text">
-                                <p>FAST AND QUALITY WORK</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <p class="about-two__text-2">Duis aute irure dolor in repreh enderit in volup tate velit esse cillum dolore eu fugiat nulla dolor atur with Lorem ipsum is simply free text market web bites eius mod ut labore duis aute irure pari</p> --}}
-                    <a href="{{route('front.contact')}}" class="thm-btn">Contact Us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--About Two End-->
+
 @endsection
+

@@ -52,82 +52,120 @@
 @endsection
 
 @section('content')
-<div class="stricky-header stricked-menu main-menu main-menu-two">
-    <div class="sticky-header__content"></div>
-    <!-- /.sticky-header__content -->
-</div>
-<!-- /.stricky-header -->
+@php
+    $fixmo = 'frontend/assets/fixmo';
+    $bannerImage = asset($fixmo . '/img/banner/banner-370.jpg');
+    $pageTitle = $currentSubCategory?->name ?? 'Services';
+    $pageDescription = $currentSubCategory?->short_description ?: '';
+    $serviceIcons = [
+        'icon-phonendoscope',
+        'icon-smartphone-broken',
+        'icon-plaster',
+        'icon-tablet-broken',
+        'icon-sync-laptop',
+        'icon-smartphone-repair',
+    ];
+@endphp
 
-<!--Page Header Start-->
-<section class="page-header">
-    <div class="page-header-bg" style="background-image: url(https://unicktheme.com/demo2023/fixnix/assets/images/backgrounds/page-header-bg.jpg)">
-    </div>
-    <div class="container">
-        <div class="page-header__inner">
-            <h1>{{ $categories[0]->category->name }}</h1>
-            <p>{{ $categories[0]->category->short_description }} </p>
-
-            <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="">Home</a></li>
-                <li><span>//</span></li>
-                <li>Services</li>
-                <li><span>//</span></li>
-                <li>{{ $categories[0]->category->name }}</li>
-
-
-            </ul>
-        </div>
-    </div>
-</section>
-<!--Page Header End-->
-
-<!--Services Two Start-->
-<section class="services-two">
-    <div class="container">
-        {{-- <div class="section-title section-title--two text-center">
-            <span class="section-title__tagline">OUR SERVICES</span>
-            <h2 class="section-title__title">Our Efficient Solution</h2>
-            <p class="section-title__text">Duis aute irure dolor in repreh enderit in volup tate velit esse cillum dolore <br> eu fugiat nulla dolor atur with Lorem ipsum is simply</p>
-        </div> --}}
-        <div class="row">
-
-            <!--Services Two Single Start-->
-            @forelse($categories as $key => $subCategory)
-            <div class="col-xl-3 col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="100ms">
-                <a href="{{ route('front.services.childcategory', [
-                            'category' => $subCategory->category->slug,
-                            'subcategory' => $subCategory->subCategory->slug,
-                            'child' => $subCategory->slug
-                            ] ) }}">
-                <div class="services-two__single">
-                    <div class="services-two__single-inner">
-                        <div class="">
-                            <span class="">
-                                @if($subCategory)
-                                                    <img src="{{ asset($subCategory->image) }}" class="img-responsive" style="width: 140px; height: 200px; display: block; margin: 0 auto;">
-                                                    @else
-                                                    <!--<img class="img-responsive" src="img_chania.jpg" alt="Chania" />-->
-                                                    <img src="{{ asset('frontend/nothing.png') }}" class="img-responsive" style="width: 61px; height: 71px; display: block; margin: 0 auto;">
-                                                    @endif
-                            </span>
+<div id="main-content" class="site-main clearfix">
+    <div id="content-wrap">
+        <div id="site-content" class="site-content clearfix">
+            <div id="inner-content" class="inner-content-wrap">
+                <div class="page-content">
+                    <!-- Banner -->
+                    <section class="fixmo-banner">
+                        <div class="container-fluid p-0">
+                            <div class="row m-0 wrap-height">
+                                <div class="col-md-5 col-left-banner-all">
+                                    <div class="wrap-banner-left wrap-page">
+                                        <div class="name-page">
+                                            <h2 class="title-heading big text-white">{{ $pageTitle }}</h2>
+                                            <p class="name title-small mb-0"><a class="name title-small space" href="{{ route('front.home') }}">Home</a> Services / {{ $pageTitle }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-right-banner-all">
+                                    <div class="wrap-banner-right">
+                                        <img class="img-banner" src="{{ $bannerImage }}" alt="{{ $pageTitle }}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="services-two__title"><a href="{{ route('front.services.childcategory', [
-                            'category' => $subCategory->category->slug,
-                            'subcategory' => $subCategory->subCategory->slug,
-                            'child' => $subCategory->slug
-                            ] ) }}">
-                            {{ $subCategory->name }}
-                        </a></h3>
-                        {{-- <p class="services-two__text">Duis aute irure dolor in repreh enderit in volup tate velit esse cillum dolore fugiat nulla dolor atur</p> --}}
-                    </div>
+                        <div class="themesflat-spacer clearfix" data-desktop="60" data-mobile="60" data-smobile="60"></div>
+                    </section>
+                    <!-- End Banner -->
+
+                    <!-- SERVICES -->
+                    <section class="row-services">
+                        <div class="container par-ser">
+                            <div class="row mr-0">
+                                <div class="col-md-12 pr-0">
+                                    <div class="themesflat-headings style-1 text-center clearfix">
+                                        <div class="wrap-inner-small">
+                                            <h5 class="title-heading small">Our Services</h5>
+                                        </div>
+                                        <div class="wrap-inner-big">
+                                            <h2 class="title-heading big">Browse {{ $pageTitle }}</h2>
+                                        </div>
+                                        @if($pageDescription)
+                                            <div class="wrap-sub">
+                                                <p class="title-small">{{ $pageDescription }}</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="themesflat-spacer clearfix" data-desktop="16" data-mobile="35" data-smobile="35"></div>
+                            <div class="row wrap-row-services">
+                                @forelse($categories as $child)
+                                    <div class="col-md-4">
+                                        <div class="themesflat-image-box style-1 has-icon icon-right w65 clearfix wow fadeInUp" data-wow-delay="{{ $loop->index * 150 }}ms" data-wow-duration="1500ms">
+                                            <div class="image-box-item clearfix">
+                                                <div class="inner">
+                                                    <div class="thumb data-effect-item">
+                                                        <img src="{{ $child->image ? asset($child->image) : asset($fixmo . '/img/services/service-1.jpg') }}" alt="{{ $child->name }}">
+                                                        <div class="overlay-effect bg-color-accent"></div>
+                                                    </div>
+                                                    <div class="text-wrap">
+                                                        <div class="row m-0">
+                                                            <div class="col-md-3">
+                                                                <div class="icon">
+                                                                    <span class="{{ $serviceIcons[$loop->index % count($serviceIcons)] }}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <div class="title">
+                                                                    <h4 class="title-heading big">
+                                                                        <a href="{{ route('front.services.childcategory', ['category' => $child->category->slug, 'subcategory' => $child->subCategory->slug, 'child' => $child->slug]) }}">{{ $child->name }}</a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="frame-button">
+                                                                    <a href="{{ route('front.services.childcategory', ['category' => $child->category->slug, 'subcategory' => $child->subCategory->slug, 'child' => $child->slug]) }}" class="fixmo-button btn-font-1">
+                                                                        Read More
+                                                                        <span class="icon"><i class="fa fa-arrow-right"></i></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="col-md-12">
+                                        <p class="title-small text-center">No models available.</p>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END SERVICES -->
                 </div>
-                </a>
             </div>
-            @endforeach
-            <!--Services Two Single End-->
         </div>
     </div>
-</section>
+</div>
 @endsection
 
 @push('js')
