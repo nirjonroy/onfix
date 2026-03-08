@@ -16,6 +16,7 @@ use App\Models\TermsAndCondition;
 use App\Models\Faq;
 use App\Models\ContactPage;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Order;
 use App\Models\Footer;
 use App\Models\CustomPage;
@@ -94,11 +95,35 @@ class HomeController extends Controller
       	//dd($contact);
     }
 
-  	public function blog(){
-    	$blog = Blog::latest()->get();
-      	//dd($blog);
-      	return view('frontend.pages.blog', compact('blog'));
-      	//dd($contact);
+  	public function blog(Request $request){
+        $blogQuery = Blog::with(['category:id,name', 'admin:id,name'])->latest();
+
+        if ($request->filled('query')) {
+            $search = $request->query('query');
+            $blogQuery->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        $selectedCategory = null;
+        if ($request->filled('category')) {
+            $selectedCategory = BlogCategory::select(['id', 'name'])->find($request->integer('category'));
+            if ($selectedCategory) {
+                $blogQuery->where('blog_category_id', $selectedCategory->id);
+            }
+        }
+
+    	$blog = $blogQuery->paginate(4)->withQueryString();
+        $recentPosts = Blog::select(['id', 'title', 'slug', 'image', 'created_at'])
+            ->latest()
+            ->take(3)
+            ->get();
+        $blogCategories = BlogCategory::withCount('blogs')
+            ->orderBy('name')
+            ->get();
+
+      	return view('frontend.pages.blog', compact('blog', 'recentPosts', 'blogCategories', 'selectedCategory'));
     }
 
     public function blog_details($slug){

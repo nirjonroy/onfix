@@ -152,14 +152,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 pad-col mb-hide">
-                                    <div class="wrap-border-img">
-                                        <div class="wrap-img-top wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                            <img src="{{ asset($service->thumb_image) }}" alt="{{ $service->name }}">
-                                        </div>
-                                        <div class="wrap-square"></div>
-                                        <div class="wrap-img-bot wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                            <img src="{{ asset($fixmo . '/img/group/protfolio5-500x345.jpg') }}" alt="Repair detail">
-                                        </div>
+                                    @php
+                                        $serviceImage = $service->thumb_image
+                                            ? asset($service->thumb_image)
+                                            : asset($fixmo . '/img/services/service-1.jpg');
+                                    @endphp
+                                    <div class="service-detail-media wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                        <img src="{{ $serviceImage }}" alt="{{ $service->name }}">
                                     </div>
                                 </div>
                             </div>

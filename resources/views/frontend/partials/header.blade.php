@@ -2,6 +2,7 @@
     $headerPhone = siteInfo()->topbar_phone;
     $headerTel = $headerPhone ? preg_replace('/[^0-9+]/', '', $headerPhone) : '';
     $siteName = siteInfo()->site_name ?? config('app.name', 'OnFix');
+    $isServicesPage = request()->is('services*', 'service/*', 'appoinment/*', 'all-service');
 @endphp
 
 <div id="site-header-wrap">
@@ -28,16 +29,16 @@
                             <li class="menu-item {{ request()->routeIs('front.home') ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.home') }}">Home</a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ request()->routeIs('front.about-us') ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.about-us') }}">About Us</a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ $isServicesPage ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.repair.all') }}">Services</a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ request()->routeIs('front.blog', 'front.blog_details') ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.blog') }}">Blog</a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ request()->routeIs('front.contact', 'front.contact_us') ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.contact') }}">Contact</a>
                             </li>
                         </ul>

@@ -14,6 +14,16 @@
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
+/* Tighten header vertical spacing */
+#site-header .wrap-inner-logo {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+#site-header .right-bar {
+    padding: 16px 0;
+}
+
 /* Prevent the About overlay card from overlapping the next section */
 .row-aboutus {
     position: relative;
@@ -64,6 +74,101 @@
     box-shadow: 0 8px 16px rgba(4, 44, 113, 0.15);
 }
 
+.row-services .themesflat-image-box .thumb {
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.row-services .themesflat-image-box .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.row-blog-standard {
+    margin-left: 0;
+}
+
+.blog-standard-post .entry-img a {
+    display: block;
+}
+
+.blog-standard-post .entry-img img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+}
+
+.blog-standard-post .post-title .post {
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.15;
+}
+
+.blog-standard-sidebar .widget-search-box .search-field {
+    width: 100%;
+}
+
+.blog-standard-sidebar .search-submit {
+    border: 0;
+}
+
+.wrap-category .item-category a.active,
+.widget-button .fixmo-button.active {
+    font-weight: 600;
+    color: #ff4e4e;
+}
+
+.widget-button .fixmo-button.active {
+    background-color: #ff4e4e;
+    color: #ffffff;
+}
+
+.widget-page .fixmo-button.page.current,
+.widget-page .fixmo-button.page.dots {
+    background-color: #042c71;
+    color: #ffffff;
+}
+
+.widget-page .fixmo-button.page.disabled {
+    pointer-events: none;
+    opacity: 0.45;
+}
+
+/* Keep sticky header visible when fixed */
+#site-header.is-fixed {
+    top: 0;
+    visibility: visible;
+    opacity: 1;
+}
+
+.service-detail-media {
+    border: 6px solid #042c71;
+    border-radius: 14px;
+    padding: 24px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+    box-shadow: 0 18px 30px rgba(4, 44, 113, 0.12);
+}
+
+.service-detail-media img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+}
+
+.row-footer .wrap-our-footer.style-1 {
+    margin: 0 -23px 0 -6px !important;
+}
+
 @media (max-width: 991px) {
     #site-header .title-logo img {
         max-height: 55px;
@@ -71,5 +176,26 @@
 
     .row-aboutus {
         padding-bottom: 80px;
+    }
+
+    .row-services .themesflat-image-box .thumb {
+        height: 180px;
+    }
+
+    .blog-standard-post .entry-img img {
+        height: 260px;
+    }
+
+    .service-detail-media {
+        min-height: 260px;
+        padding: 16px;
+    }
+
+    .service-detail-media img {
+        max-height: 300px;
+    }
+
+    .row-footer .wrap-our-footer.style-1 {
+        margin: 0 -15px 0 -15px !important;
     }
 }
