@@ -127,9 +127,30 @@ class HomeController extends Controller
     }
 
     public function blog_details($slug){
-        $blog = Blog::where('slug', $slug)->first();
-        //dd($blog);
-        return view('frontend.pages.blog_details', compact('blog'));
+        $blog = Blog::with(['category:id,name', 'admin:id,name', 'activeComments'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $recentPosts = Blog::select(['id', 'title', 'slug', 'image', 'created_at'])
+            ->where('id', '!=', $blog->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $blogCategories = BlogCategory::withCount('blogs')
+            ->orderBy('name')
+            ->get();
+
+        $relatedPosts = Blog::select(['id', 'title', 'slug', 'image', 'created_at', 'blog_category_id'])
+            ->when($blog->blog_category_id, function ($query) use ($blog) {
+                $query->where('blog_category_id', $blog->blog_category_id);
+            })
+            ->where('id', '!=', $blog->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('frontend.pages.blog_details', compact('blog', 'recentPosts', 'blogCategories', 'relatedPosts'));
     }
 
     public function servicesCategory($category)

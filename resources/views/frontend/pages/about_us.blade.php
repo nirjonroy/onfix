@@ -52,8 +52,10 @@
     $fixmo = 'frontend/assets/fixmo';
     $aboutIntro = optional($about_us)->description_three ?: 'Fast, reliable repair for phones, tablets, and laptops.';
     $aboutBody = optional($about_us)->about_us ?: '';
+    $aboutBody = preg_replace('/<img[^>]*>/i', '', $aboutBody);
+    $aboutBody = preg_replace('/<p>\s*(?:&nbsp;|\s|<br\s*\/?>)*<\/p>/i', '', $aboutBody);
     $bannerImage = asset($fixmo . '/img/banner/banner-370.jpg');
-    $aboutImageTop = optional($about_us)->video_background ? asset($about_us->video_background) : asset($fixmo . '/img/group/protfolio2-470x430.jpg');
+    $aboutImageTop = asset($fixmo . '/img/group/protfolio2-470x430.jpg');
     $aboutImageBottom = asset($fixmo . '/img/group/protfolio5-500x345.jpg');
 @endphp            <div id="main-content" class="site-main clearfix">
                 <div id="content-wrap">

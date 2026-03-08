@@ -1,8 +1,10 @@
-﻿@php
+@php
     $headerPhone = siteInfo()->topbar_phone;
     $headerTel = $headerPhone ? preg_replace('/[^0-9+]/', '', $headerPhone) : '';
     $siteName = siteInfo()->site_name ?? config('app.name', 'OnFix');
     $isServicesPage = request()->is('services*', 'service/*', 'appoinment/*', 'all-service');
+    $serviceCategories = categories();
+    $currentServiceCategory = request()->route('category');
 @endphp
 
 <div id="site-header-wrap">
@@ -32,8 +34,18 @@
                             <li class="menu-item {{ request()->routeIs('front.about-us') ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.about-us') }}">About Us</a>
                             </li>
-                            <li class="menu-item {{ $isServicesPage ? 'current-menu-item' : '' }}">
-                                <a href="{{ route('front.repair.all') }}">Services</a>
+                            <li class="menu-item menu-item-has-children {{ $isServicesPage ? 'current-menu-item' : '' }}">
+                                <a href="{{ route('front.repair.all') }}" class="after-sub">Services</a>
+                                <ul class="sub-menu services-dropdown-menu">
+                                    <li class="{{ request()->routeIs('front.repair.all') ? 'current-item' : '' }}">
+                                        <a href="{{ route('front.repair.all') }}">All Services</a>
+                                    </li>
+                                    @foreach($serviceCategories as $category)
+                                        <li class="{{ $currentServiceCategory === $category->slug ? 'current-item' : '' }}">
+                                            <a href="{{ route('front.services.category', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </li>
                             <li class="menu-item {{ request()->routeIs('front.blog', 'front.blog_details') ? 'current-menu-item' : '' }}">
                                 <a href="{{ route('front.blog') }}">Blog</a>
